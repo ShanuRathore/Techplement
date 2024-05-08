@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App </title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <label class="logo">Weather App <span>☀️</span></label>
+        <ul>
+            <li><a class="active" href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Feedback</a></li>
+        </ul>
+    </nav>
+    <div class='box'>
+        <div class='inputData'>
+            <!-- <button class='currLoc' onclick="getCurrentLocation()">Use Current Location</button> -->
+            <input type='search' class='inputField' id='searchInput' placeholder='Enter Place Name' value=''
+                onchange="handleChange(event)" />
+            <button class='findBtn' onclick="findWeather()">Search</button>
+        </div>
+    
+        <div class='in-out'>
+            
+            <div class='info'>
+                <h2 class='location'><i class="fa-sharp fa-solid fa-location-dot fa-beat"></i> <span id="location">-</span>
+                </h2>
+                <h3 class='temp'>
+                    <div class='temperature'><span id="temperature">-</span></div>
+                    <div class='wc'>
+                        <div class='celsius'>°C</div>
+                        <div class='weather'><span id="weather_main">-</span></div>
+                    </div>
+                    <div class='icons'></div>
+                </h3>
+            </div>
+            <div class='details'>
+                <h2 class='wd'>Weather Details</h2>
+                <div class='weather-det'>
+                    <h3>Feels like: <span id="feels_like">-</span> °C</h3>
+                    <h3>Wind Speed: <span id="wind_speed">-</span> km/h</h3>
+                    <h3>Humidity: <span id="humidity">-</span> %</h3>
+                    <h3>Pressure: <span id="pressure">-</span> hPa</h3>
+                    <h3>Visibility: <span id="visibility">-</span> km</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+        window.addEventListener('load', () => {
+            getCurrentLocation();
+        });
+
+        function getCurrentLocation() {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const finalAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=3ae14e2be12a88798b6e3e0c53723dcf`;
+            fetch(finalAPI)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('location').innerText = data.name || "City not found";
+                    document.getElementById('feels_like').innerText = data.main ? data.main.feels_like.toFixed(1) : "-";
+                    document.getElementById('wind_speed').innerText = data.wind ? data.wind.speed.toFixed(1) : "-";
+                    document.getElementById('humidity').innerText = data.main ? data.main.humidity : "-";
+                    document.getElementById('pressure').innerText = data.main ? data.main.pressure : "-";
+                    document.getElementById('visibility').innerText = data.visibility ? (data.visibility / 1000) : "-";
+                    document.getElementById('temperature').innerText = data.main ? data.main.temp.toFixed(1) : "-";
+                    document.getElementById('weather_main').innerText = data.weather ? data.weather[0].main : "-";
+                })
+                .catch(error => {
+                    console.error('Error fetching weather:', error.message);
+                    document.getElementById('location').innerText = "City not found";
+                });
+        }
+
+        function handleChange(event) {
+            const searchQuery = event.target.value;
+            const finalAPI = `https://api.openweathermap.org/data/2.5/weather?q=${searchQuery}&appid=3ae14e2be12a88798b6e3e0c53723dcf`;
+            fetch(finalAPI)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('location').innerText = data.name || "City not found";
+                    document.getElementById('feels_like').innerText = data.main ? data.main.feels_like.toFixed(1) : "-";
+                    document.getElementById('wind_speed').innerText = data.wind ? data.wind.speed.toFixed(1) : "-";
+                    document.getElementById('humidity').innerText = data.main ? data.main.humidity : "-";
+                    document.getElementById('pressure').innerText = data.main ? data.main.pressure : "-";
+                    document.getElementById('visibility').innerText = data.visibility ? (data.visibility / 1000) : "-";
+                    document.getElementById('temperature').innerText = data.main ? data.main.temp.toFixed(1) : "-";
+                    document.getElementById('weather_main').innerText = data.weather ? data.weather[0].main : "-";
+                })
+                .catch(error => {
+                    console.error('Error fetching weather:', error.message);
+                    document.getElementById('location').innerText = "City not found";
+                });
+        }
+
+        function findWeather() {
+            const searchQuery = document.getElementById('searchInput').value;
+            const finalAPI = `https://api.openweathermap.org/data/2.5/weather?q=${searchQuery}&appid=3ae14e2be12a88798b6e3e0c53723dcf`;
+            fetchWeather(finalAPI);
+        }
+    </script>
+</body>
+
+</html>
