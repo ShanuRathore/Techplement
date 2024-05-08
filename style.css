@@ -252,29 +252,29 @@ section {
         /* flex-direction: column; */
     }
     .info .location span{
-        font-size: 50px;
+        font-size: 2rem;
     }
     .temp span,.celsius,.weather span{
-        font-size: 40px;
+        font-size: 2rem;
     }
     .details h2{
-        font-size: 40px;
+        font-size: 2rem;
         color: black;
     }
     .weather-det h3 {
         color: black;
     }
 }
-@media (max-width: 380px) {
+@media (max-width: 380px) and (min-width:300px) {
 
     nav .logo{
-        font-size: 20px;
+        font-size: 1.5rem;
     }
     .logo span {
         display: none;
     }
     .inputData{
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .box{
@@ -282,13 +282,13 @@ section {
         flex-direction: column;
     }
     .info .location span{
-        font-size: 50px;
+        font-size: 2rem;
     }
     .temp span,.celsius,.weather span{
-        font-size: 40px;
+        font-size: 2rem;
     }
     .details h2{
-        font-size: 30px;
+        font-size: 2rem;
         color: black;
     }
     .weather-det h3 {
