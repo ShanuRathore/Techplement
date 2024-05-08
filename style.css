@@ -119,14 +119,6 @@ section {
 }
 
 
-
-section {
-    background: url(bg1.jpg) no-repeat;
-    background-size: cover;
-    height: calc(100vh - 80px);
-}
-
-
 /* Dashboard css */
 
 .box {
@@ -239,19 +231,15 @@ section {
     font-size: 35px;
 }
 
-.icon-w {
-    font-size: 3rem;
-}
 
 .details {
     margin-top: 1rem;
     background-color: rgb(122, 122, 122);
     border-radius: 10px;
-    backdrop-filter: blur(5px);
     padding: 1rem;
     border: 2px solid rgb(87, 87, 87);
 }
-@media (max-width: 450px) and (min-width: 300px) {
+@media (max-width: 450px) {
     .logo span {
         display: none;
     }
@@ -260,8 +248,8 @@ section {
     }
 
     .box{
-        display: flex;
-        flex-direction: column;
+        display: block;
+        /* flex-direction: column; */
     }
     .info .location span{
         font-size: 50px;
@@ -271,6 +259,36 @@ section {
     }
     .details h2{
         font-size: 40px;
+        color: black;
+    }
+    .weather-det h3 {
+        color: black;
+    }
+}
+@media (max-width: 380px) {
+
+    nav .logo{
+        font-size: 20px;
+    }
+    .logo span {
+        display: none;
+    }
+    .inputData{
+        margin-bottom: 0px;
+    }
+
+    .box{
+        display: block;
+        flex-direction: column;
+    }
+    .info .location span{
+        font-size: 50px;
+    }
+    .temp span,.celsius,.weather span{
+        font-size: 40px;
+    }
+    .details h2{
+        font-size: 30px;
         color: black;
     }
     .weather-det h3 {
